@@ -1038,3 +1038,27 @@ p {
   display: block;
   margin: 0 auto;
 }
+/* Estilos para las imágenes de materias */
+.materia-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.materia-card:hover .materia-icon {
+    background-color: var(--color-primary-hover);
+    transform: scale(1.1);
+}
+
+.materia-imagen {
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
+}
+
