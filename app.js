@@ -1,19 +1,20 @@
 // Datos de la aplicación
+
 var appData = {
     materias: [
-        {id: 1, nombre: "Matemática", nivel: "Primario, Secundario, Universitario"},
-        {id: 2, nombre: "Física", nivel: "Secundario, Universitario"},
-        {id: 3, nombre: "Química", nivel: "Secundario, Universitario"},
-        {id: 4, nombre: "Biología", nivel: "Secundario, Universitario"},
-        {id: 5, nombre: "Historia", nivel: "Primario, Secundario"},
-        {id: 6, nombre: "Geografía", nivel: "Primario, Secundario"},
-        {id: 7, nombre: "Literatura", nivel: "Secundario"},
-        {id: 8, nombre: "Inglés", nivel: "Todos los niveles"},
-        {id: 9, nombre: "Filosofía", nivel: "Secundario"},
-        {id: 10, nombre: "Economía", nivel: "Secundario, Universitario"},
-        {id: 11, nombre: "Contabilidad", nivel: "Secundario, Universitario"},
-        {id: 12, nombre: "Informática", nivel: "Todos los niveles"}
-    ],
+        {id: 1, nombre: "Matemática", nivel: "Primario, Secundario, Universitario", imagen: "images/matematica.jpg"},
+        {id: 2, nombre: "Física", nivel: "Secundario, Universitario", imagen: "images/fisica.jpg"},
+        {id: 3, nombre: "Química", nivel: "Secundario, Universitario", imagen: "images/quimica.jpg"},
+        {id: 4, nombre: "Biología", nivel: "Secundario, Universitario", imagen: "images/biologia.jpg"},
+        {id: 5, nombre: "Historia", nivel: "Primario, Secundario", imagen: "images/historia.jpg"},
+        {id: 6, nombre: "Geografía", nivel: "Primario, Secundario", imagen: "images/geografia.jpg"},
+        {id: 7, nombre: "Literatura", nivel: "Secundario", imagen: "images/literatura.jpg"},
+        {id: 8, nombre: "Inglés", nivel: "Todos los niveles", imagen: "images/ingles.jpg"},
+        {id: 9, nombre: "Filosofía", nivel: "Secundario", imagen: "images/filosofia.jpg"},
+        {id: 10, nombre: "Economía", nivel: "Secundario, Universitario", imagen: "images/economia.jpg"},
+        {id: 11, nombre: "Contabilidad", nivel: "Secundario, Universitario", imagen: "images/contabilidad.jpg"},
+        {id: 12, nombre: "Informática", nivel: "Todos los niveles", imagen: "images/informatica.jpg"}
+        ],
     testimonios: [
         {nombre: "María González", materia: "Matemática", comentario: "Excelente profesor, muy claro en sus explicaciones"},
         {nombre: "Carlos Rodríguez", materia: "Física", comentario: "Me ayudó mucho a entender conceptos difíciles"},
@@ -242,6 +243,9 @@ var ui = {
         for (var i = 0; i < appData.materias.length; i++) {
             var materia = appData.materias[i];
             html += '<div class="materia-card">';
+            html += '<div class="materia-icon">';
+            html += '<img src="' + materia.imagen + '" alt="' + materia.nombre + '" class="materia-imagen">';
+            html += '</div>';
             html += '<h3 class="materia-nombre">' + materia.nombre + '</h3>';
             html += '<p class="materia-nivel">' + materia.nivel + '</p>';
             html += '</div>';
