@@ -1030,3 +1030,11 @@ p {
     --color-text-secondary: black;
   }
 }
+.fotoprofesor {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
