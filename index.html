@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clases particulares con Tomás Cobián - Profesor especializado en más de 12 materias">
+    <meta name="keywords" content="clases particulares, profesor, matemática, física, química, apoyo escolar">
+    <title>Tomás Cobián - Clases Particulares</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <h1 class="nav-title">Tomás Cobián</h1>
+                    <span class="nav-subtitle">Clases Particulares de Excelencia</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#sobre-mi" class="nav-link">Sobre mí</a></li>
+                    <li><a href="#materias" class="nav-link">Materias</a></li>
+                    <li><a href="#metodologia" class="nav-link">Metodología</a></li>
+                    <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                    <li><a href="#gestion" class="nav-link">Gestión</a></li>
+                </ul>
+                <button class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Clases Particulares de Excelencia</h1>
+                    <p class="hero-subtitle">Apoyo académico personalizado con 8 años de experiencia en múltiples materias</p>
+                    <div class="hero-buttons">
+                        <a href="#gestion" class="btn btn-primary">Reservar Clase</a>
+                        <a href="#sobre-mi" class="btn btn-secondary">Conocer más</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Mí Section -->
+        <section id="sobre-mi" class="sobre-mi">
+            <div class="container">
+                <h2 class="section-title">Sobre Mí</h2>
+                <div class="sobre-mi-content">
+                    <div>
+                        <h3 class="sobre-mi-nombre">Tomás Cobián</h3>
+                        <p class="sobre-mi-titulo">Profesor Particular Especializado</p>
+                        <p class="sobre-mi-experiencia">8 años de experiencia en enseñanza personalizada</p>
+                        <p class="sobre-mi-descripcion">
+                            Soy un profesor apasionado por la enseñanza personalizada con amplia experiencia en diferentes niveles educativos. 
+                            Mi objetivo es ayudar a cada estudiante a alcanzar su máximo potencial académico através de metodologías adaptadas 
+                            a su estilo de aprendizaje.
+                        </p>
+                        <div class="sobre-mi-stats">
+                            <div class="stat">
+                                <span class="stat-number">300+</span>
+                                <span class="stat-label">Estudiantes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Materias</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">8</span>
+                                <span class="stat-label">Años de experiencia</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sobre-mi-image">
+                        <div class="imagen-placeholder">
+                            <p>Foto del Profesor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materias Section -->
+        <section id="materias" class="materias">
+            <div class="container">
+                <h2 class="section-title">Materias que Enseño</h2>
+                <p class="section-subtitle">Apoyo académico especializado en múltiples áreas del conocimiento</p>
+                <div id="materias-grid" class="materias-grid">
+                    <!-- Generado dinámicamente por JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Metodología Section -->
+        <section id="metodologia" class="metodologia">
+            <div class="container">
+                <h2 class="section-title">Mi Metodología</h2>
+                <p class="section-subtitle">Proceso estructurado para garantizar el éxito académico</p>
+                <div id="metodologia-grid" class="metodologia-grid">
+                    <!-- Generado dinámicamente por JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonios Section -->
+        <section id="testimonios" class="testimonios">
+            <div class="container">
+                <h2 class="section-title">Testimonios de Estudiantes</h2>
+                <p class="section-subtitle">Lo que dicen mis alumnos sobre las clases</p>
+                <div id="testimonios-grid" class="testimonios-grid">
+                    <!-- Generado dinámicamente por JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Gestión Section -->
+        <section id="gestion" class="gestion">
+            <div class="container">
+                <h2 class="section-title">Gestión de Clases</h2>
+                <p class="section-subtitle">Sistema de administración de alumnos y turnos</p>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button id="tab-alumnos" class="tab-button active">Gestión de Alumnos</button>
+                    <button id="tab-turnos" class="tab-button">Gestión de Turnos</button>
+                </div>
+
+                <!-- Content Alumnos -->
+                <div id="content-alumnos" class="tab-content active">
+                    <div class="crud-header">
+                        <h3>Gestión de Alumnos</h3>
+                        <button id="btn-nuevo-alumno" class="btn btn-primary">Nuevo Alumno</button>
+                    </div>
+                    
+                    <div class="filtros">
+                        <input type="text" id="buscar-alumno" class="input" placeholder="Buscar alumno...">
+                        <select id="filtro-materia-alumno" class="select">
+                            <option value="">Todas las materias</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>Materia</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-alumnos">
+                                <tr>
+                                    <td colspan="5" class="no-data">No hay alumnos registrados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Content Turnos -->
+                <div id="content-turnos" class="tab-content">
+                    <div class="crud-header">
+                        <h3>Gestión de Turnos</h3>
+                        <button id="btn-nuevo-turno" class="btn btn-primary">Nuevo Turno</button>
+                    </div>
+                    
+                    <div class="filtros">
+                        <input type="text" id="buscar-turno" class="input" placeholder="Buscar turno...">
+                        <select id="filtro-materia-turno" class="select">
+                            <option value="">Todas las materias</option>
+                        </select>
+                        <input type="date" id="filtro-fecha" class="input">
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Alumno</th>
+                                    <th>Materia</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-turnos">
+                                <tr>
+                                    <td colspan="6" class="no-data">No hay turnos programados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Tomás Cobián</h3>
+                    <p>Profesor especializado en clases particulares personalizadas</p>
+                    <p>Metodología probada y resultados garantizados</p>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p>Email: tomas.cobian@email.com</p>
+                    <p>Teléfono: +54 11 1234-5678</p>
+                    <p>WhatsApp: +54 9 11 1234-5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tomás Cobián - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Título del Modal</h3>
+                <button id="modal-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario Alumno -->
+                <form id="form-alumno" class="hidden">
+                    <div class="form-group">
+                        <label for="alumno-nombre">Nombre completo</label>
+                        <input type="text" id="alumno-nombre" name="nombre" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alumno-email">Email</label>
+                        <input type="email" id="alumno-email" name="email" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alumno-telefono">Teléfono</label>
+                        <input type="tel" id="alumno-telefono" name="telefono" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alumno-materia">Materia</label>
+                        <select id="alumno-materia" name="materia" class="select" required>
+                            <option value="">Seleccione una materia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alumno-nivel">Nivel</label>
+                        <input type="text" id="alumno-nivel" name="nivel" class="input" placeholder="Ej: Secundario, Universitario">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-alumno" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+
+                <!-- Formulario Turno -->
+                <form id="form-turno" class="hidden">
+                    <div class="form-group">
+                        <label for="turno-alumno">Alumno</label>
+                        <select id="turno-alumno" name="alumnoId" class="select" required>
+                            <option value="">Seleccione un alumno</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="turno-materia">Materia</label>
+                        <select id="turno-materia" name="materia" class="select" required>
+                            <option value="">Seleccione una materia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="turno-fecha">Fecha</label>
+                        <input type="date" id="turno-fecha" name="fecha" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="turno-hora">Hora</label>
+                        <input type="time" id="turno-hora" name="hora" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="turno-duracion">Duración (minutos)</label>
+                        <select id="turno-duracion" name="duracion" class="select" required>
+                            <option value="60">60 minutos</option>
+                            <option value="90">90 minutos</option>
+                            <option value="120">120 minutos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="turno-notas">Notas adicionales</label>
+                        <textarea id="turno-notas" name="notas" class="textarea" rows="3" placeholder="Notas o comentarios adicionales"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-turno" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <p id="notification-message"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
