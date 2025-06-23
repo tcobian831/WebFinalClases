@@ -370,8 +370,16 @@ var ui = {
             var turno = turnos[i];
             var coincideBusqueda = turno.alumnoNombre.toLowerCase().indexOf(busqueda) !== -1;
             var coincideMateria = !materiaFiltro || turno.materia === materiaFiltro;
-            var coincideFecha = !fechaFiltro || turno.fecha === fechaFiltro;
-            
+            var coincideFecha = true;
+            if (fechaFiltro) {
+                // Convertir ambas fechas al mismo formato para comparación
+                var fechaTurno = new Date(turno.fecha);
+                var fechaFiltroDate = new Date(fechaFiltro);
+                // Comparar solo la parte de la fecha (sin hora)
+                var fechaTurnoStr = fechaTurno.toISOString().split('T')[0];
+                var fechaFiltroStr = fechaFiltroDate.toISOString().split('T')[0];
+                coincideFecha = fechaTurnoStr === fechaFiltroStr;
+            }
             if (coincideBusqueda && coincideMateria && coincideFecha) {
                 filtrados.push(turno);
             }
