@@ -425,6 +425,19 @@ var ui = {
         select.innerHTML = html;
         select.value = currentValue;
     },
+
+    updateContactoMateriaSelect: function() {
+        var select = document.getElementById('contacto-materia');
+        if (!select) return;
+    
+        var html = '<option value="">Seleccione una materia</option>';
+    
+        for (var i = 0; i < appData.materias.length; i++) {
+            var materia = appData.materias[i];
+            html += '<option value="' + materia.nombre + '">' + materia.nombre + '</option>';
+        }
+    select.innerHTML = html;
+    },
     
     showNotification: function(message, type) {
         var notification = document.getElementById('notification');
@@ -678,6 +691,38 @@ var eventListeners = {
                 crud.nuevoTurno();
             });
         }
+
+        // Event listener para formulario de contacto
+        var formContacto = document.getElementById('form-contacto');
+        if (formContacto) {
+            formContacto.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var formData = {
+                    nombre: document.getElementById('contacto-nombre').value,
+                    email: document.getElementById('contacto-email').value,
+                    telefono: document.getElementById('contacto-telefono').value,
+                    materia: document.getElementById('contacto-materia').value,
+                    mensaje: document.getElementById('contacto-mensaje').value
+                };
+        
+                // Validar campos obligatorios
+                if (!formData.nombre || !formData.email || !formData.mensaje) {
+                    ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
+                    return;
+                }
+        
+                // Validar email
+                if (!utils.validateEmail(formData.email)) {
+                    ui.showNotification('Por favor ingrese un email válido', 'error');
+                    return;
+                }
+        
+                // Simular envío exitoso
+                ui.showNotification('¡Mensaje enviado correctamente! Te contactaremos pronto.', 'success');
+                formContacto.reset();
+            });
+        }
+
         
         // Event listeners para modal
         if (modalClose) {
@@ -878,6 +923,7 @@ function init() {
     
     ui.updateMateriaSelects();
     ui.updateAlumnoSelect();
+    ui.updateContactoMateriaSelect();
     
     ui.renderAlumnos();
     ui.renderTurnos();
