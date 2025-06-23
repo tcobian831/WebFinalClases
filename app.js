@@ -375,8 +375,8 @@ var ui = {
         var coincideFecha = true;
         if (fechaFiltro) {
             // Convertir fecha del filtro (YYYY-MM-DD) a formato DD/MM/YYYY
-            var partesFiltrro = fechaFiltro.split('-');
-            var fechaFiltroFormateada = partesFiltrro[2] + '/' + partesFiltrro[1] + '/' + partesFiltrro[0];
+            var partesFiltro = fechaFiltro.split('-');
+            var fechaFiltroFormateada = partesFiltro[2] + '/' + partesFiltro[1] + '/' + partesFiltro[0];
             
             // Comparar directamente los strings formateados
             coincideFecha = turno.fecha === fechaFiltroFormateada;
@@ -388,7 +388,7 @@ var ui = {
     }
     
     return filtrados;
-}
+},
 
     
     updateMateriaSelects: function() {
@@ -643,7 +643,7 @@ var crud = {
         ui.showNotification('Error al guardar el turno', 'error');
         return false;
     }
-};
+},
 
 // Event listeners y configuración
 var eventListeners = {
