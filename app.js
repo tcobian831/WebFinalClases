@@ -438,28 +438,33 @@ var modal = {
         var modalEl = document.getElementById('modal');
         var titleEl = document.getElementById('modal-title');
         
-        // Ocultar TODOS los formularios primero
+        // FORZAR ocultación de todos los formularios PRIMERO
         var forms = ['form-alumno', 'form-turno'];
         for (var i = 0; i < forms.length; i++) {
             var form = document.getElementById(forms[i]);
             if (form) {
                 form.classList.add('hidden');
+                form.style.display = 'none'; // Forzar ocultación inmediata
             }
         }
         
-        // Mostrar SOLO el formulario solicitado
-        var targetForm = document.getElementById(formId);
-        if (targetForm) {
-            targetForm.classList.remove('hidden');
-        }
-        
-        if (titleEl) {
-            titleEl.textContent = title;
-        }
-        
-        if (modalEl) {
-            modalEl.classList.add('active');
-        }
+        // Pequeño delay para asegurar que el CSS se aplique
+        setTimeout(function() {
+            // Mostrar SOLO el formulario solicitado
+            var targetForm = document.getElementById(formId);
+            if (targetForm) {
+                targetForm.classList.remove('hidden');
+                targetForm.style.display = 'block'; // Forzar visualización
+            }
+            
+            if (titleEl) {
+                titleEl.textContent = title;
+            }
+            
+            if (modalEl) {
+                modalEl.classList.add('active');
+            }
+        }, 10); // 10ms es suficiente para forzar el re-render
     },
     
     close: function() {
@@ -475,6 +480,7 @@ var modal = {
             if (form) {
                 form.reset();
                 form.classList.add('hidden');
+                form.style.display = 'none';
             }
         }
         
