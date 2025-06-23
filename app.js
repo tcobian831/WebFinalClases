@@ -117,7 +117,6 @@ var alumnosCrud = {
             nombre: alumnoData.nombre,
             email: alumnoData.email,
             telefono: alumnoData.telefono,
-            materia: alumnoData.materia,
             nivel: alumnoData.nivel || '',
             fechaRegistro: new Date().toISOString()
         };
@@ -132,7 +131,6 @@ var alumnosCrud = {
                 appState.alumnos[i].nombre = alumnoData.nombre;
                 appState.alumnos[i].email = alumnoData.email;
                 appState.alumnos[i].telefono = alumnoData.telefono;
-                appState.alumnos[i].materia = alumnoData.materia;
                 appState.alumnos[i].nivel = alumnoData.nivel || '';
                 this.saveToStorage();
                 return appState.alumnos[i];
@@ -161,6 +159,7 @@ var alumnosCrud = {
         appState.alumnos = alumnos || [];
     }
 };
+
 
 // CRUD de Turnos
 var turnosCrud = {
@@ -340,25 +339,24 @@ var ui = {
     },
     
     getFilteredAlumnos: function() {
-        var busqueda = document.getElementById('buscar-alumno').value.toLowerCase();
-        var materiaFiltro = document.getElementById('filtro-materia-alumno').value;
+    var busqueda = document.getElementById('buscar-alumno').value.toLowerCase();
+    
+    var alumnos = alumnosCrud.getAll();
+    var filtrados = [];
+    
+    for (var i = 0; i < alumnos.length; i++) {
+        var alumno = alumnos[i];
+        var coincideBusqueda = alumno.nombre.toLowerCase().indexOf(busqueda) !== -1 || 
+                              alumno.email.toLowerCase().indexOf(busqueda) !== -1;
         
-        var alumnos = alumnosCrud.getAll();
-        var filtrados = [];
-        
-        for (var i = 0; i < alumnos.length; i++) {
-            var alumno = alumnos[i];
-            var coincideBusqueda = alumno.nombre.toLowerCase().indexOf(busqueda) !== -1 || 
-                                  alumno.email.toLowerCase().indexOf(busqueda) !== -1;
-            var coincideMateria = !materiaFiltro || alumno.materia === materiaFiltro;
-            
-            if (coincideBusqueda && coincideMateria) {
-                filtrados.push(alumno);
-            }
+        if (coincideBusqueda) {
+            filtrados.push(alumno);
         }
-        
-        return filtrados;
+    }
+    
+    return filtrados;
     },
+
     
     getFilteredTurnos: function() {
         var busqueda = document.getElementById('buscar-turno').value.toLowerCase();
@@ -497,7 +495,6 @@ var crud = {
         document.getElementById('alumno-nombre').value = alumno.nombre;
         document.getElementById('alumno-email').value = alumno.email;
         document.getElementById('alumno-telefono').value = alumno.telefono;
-        document.getElementById('alumno-materia').value = alumno.materia;
         document.getElementById('alumno-nivel').value = alumno.nivel;
         
         appState.editingAlumno = id;
@@ -517,38 +514,38 @@ var crud = {
     },
     
     guardarAlumno: function(formData) {
-        if (!formData.nombre || !formData.email || !formData.telefono || !formData.materia) {
-            ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
-            return false;
+    if (!formData.nombre || !formData.email || !formData.telefono) {
+        ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
+        return false;
+    }
+    
+    if (!utils.validateEmail(formData.email)) {
+        ui.showNotification('Por favor ingrese un email válido', 'error');
+        return false;
+    }
+    
+    if (!utils.validatePhone(formData.telefono)) {
+        ui.showNotification('Por favor ingrese un teléfono válido', 'error');
+        return false;
+    }
+    
+    try {
+        if (appState.editingAlumno) {
+            alumnosCrud.update(appState.editingAlumno, formData);
+            ui.showNotification('Alumno actualizado correctamente', 'success');
+        } else {
+            alumnosCrud.create(formData);
+            ui.showNotification('Alumno creado correctamente', 'success');
         }
         
-        if (!utils.validateEmail(formData.email)) {
-            ui.showNotification('Por favor ingrese un email válido', 'error');
-            return false;
-        }
-        
-        if (!utils.validatePhone(formData.telefono)) {
-            ui.showNotification('Por favor ingrese un teléfono válido', 'error');
-            return false;
-        }
-        
-        try {
-            if (appState.editingAlumno) {
-                alumnosCrud.update(appState.editingAlumno, formData);
-                ui.showNotification('Alumno actualizado correctamente', 'success');
-            } else {
-                alumnosCrud.create(formData);
-                ui.showNotification('Alumno creado correctamente', 'success');
-            }
-            
-            modal.close();
-            ui.renderAlumnos();
-            ui.updateAlumnoSelect();
-            return true;
-        } catch (error) {
-            ui.showNotification('Error al guardar el alumno', 'error');
-            return false;
-        }
+        modal.close();
+        ui.renderAlumnos();
+        ui.updateAlumnoSelect();
+        return true;
+    } catch (error) {
+        ui.showNotification('Error al guardar el alumno', 'error');
+        return false;
+    }
     },
     
     nuevoTurno: function() {
