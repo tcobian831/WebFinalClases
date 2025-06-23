@@ -601,40 +601,40 @@ var crud = {
         }
     },
     
- guardarTurno: function(formData) {
-    if (!formData.alumnoId || !formData.materia || !formData.fecha || !formData.hora) {
-        ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
-        return false;
-    }
-    
-    var alumno = null;
-    for (var i = 0; i < appState.alumnos.length; i++) {
-        if (appState.alumnos[i].id == formData.alumnoId) {
-            alumno = appState.alumnos[i];
-            break;
+     guardarTurno: function(formData) {
+        if (!formData.alumnoId || !formData.materia || !formData.fecha || !formData.hora) {
+            ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
+            return false;
         }
-    }
     
-    if (!alumno) {
-        ui.showNotification('Alumno no encontrado', 'error');
-        return false;
-    }
+        var alumno = null;
+        for (var i = 0; i < appState.alumnos.length; i++) {
+            if (appState.alumnos[i].id == formData.alumnoId) {
+                alumno = appState.alumnos[i];
+                break;
+            }
+        }
+    
+        if (!alumno) {
+            ui.showNotification('Alumno no encontrado', 'error');
+            return false;
+        }
     
     // Convertir fecha a formato DD/MM/YYYY sin zona horaria
-    var partesDate = formData.fecha.split('-');
-    var fechaFormateada = partesDate[2] + '/' + partesDate[1] + '/' + partesDate[0];
+        var partesDate = formData.fecha.split('-');
+        var fechaFormateada = partesDate[2] + '/' + partesDate[1] + '/' + partesDate[0];
     
-    formData.fecha = fechaFormateada;
-    formData.alumnoNombre = alumno.nombre;
+        formData.fecha = fechaFormateada;
+        formData.alumnoNombre = alumno.nombre;
     
-    try {
-        if (appState.editingTurno) {
-            turnosCrud.update(appState.editingTurno, formData);
-            ui.showNotification('Turno actualizado correctamente', 'success');
-        } else {
-            turnosCrud.create(formData);
-            ui.showNotification('Turno creado correctamente', 'success');
-        }
+        try {
+            if (appState.editingTurno) {
+                turnosCrud.update(appState.editingTurno, formData);
+                ui.showNotification('Turno actualizado correctamente', 'success');
+            } else {
+                turnosCrud.create(formData);
+                ui.showNotification('Turno creado correctamente', 'success');
+            }
         
         modal.close();
         ui.renderTurnos();
@@ -644,6 +644,7 @@ var crud = {
         return false;
     }
 }
+};         
 
 // Event listeners y configuración
 var eventListeners = {
