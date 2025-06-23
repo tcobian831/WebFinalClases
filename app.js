@@ -616,7 +616,7 @@ var crud = {
         ui.showNotification('Alumno no encontrado', 'error');
         return false;
     }
-    
+    formData.fecha = new Date(formData.fecha).toISOString().split('T')[0];
     formData.alumnoNombre = alumno.nombre;
     
     try {
