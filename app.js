@@ -668,6 +668,74 @@ var crud = {
 }
 };         
 
+// Sistema de autenticación
+var auth = {
+    isAuthenticated: false,
+    correctPassword: 'PrograWeb20251C',
+    
+    showLoginModal: function() {
+        var authModal = document.getElementById('auth-modal');
+        if (authModal) {
+            authModal.classList.add('active');
+        }
+    },
+    
+    hideLoginModal: function() {
+        var authModal = document.getElementById('auth-modal');
+        if (authModal) {
+            authModal.classList.remove('active');
+        }
+        // Limpiar formulario
+        var form = document.getElementById('form-auth');
+        if (form) {
+            form.reset();
+        }
+    },
+    
+    authenticate: function(password) {
+        if (password === this.correctPassword) {
+            this.isAuthenticated = true;
+            this.showGestionContent();
+            this.hideLoginModal();
+            ui.showNotification('Acceso concedido. Bienvenido al sistema de gestión.', 'success');
+            return true;
+        } else {
+            ui.showNotification('Contraseña incorrecta. Intente nuevamente.', 'error');
+            return false;
+        }
+    },
+    
+    logout: function() {
+        this.isAuthenticated = false;
+        this.hideGestionContent();
+        ui.showNotification('Sesión cerrada correctamente.', 'success');
+    },
+    
+    showGestionContent: function() {
+        var restrictedDiv = document.getElementById('access-restricted');
+        var gestionContent = document.getElementById('gestion-content');
+        
+        if (restrictedDiv) {
+            restrictedDiv.classList.add('hidden');
+        }
+        if (gestionContent) {
+            gestionContent.classList.remove('hidden');
+        }
+    },
+    
+    hideGestionContent: function() {
+        var restrictedDiv = document.getElementById('access-restricted');
+        var gestionContent = document.getElementById('gestion-content');
+        
+        if (restrictedDiv) {
+            restrictedDiv.classList.remove('hidden');
+        }
+        if (gestionContent) {
+            gestionContent.classList.add('hidden');
+        }
+    }
+};
+
 // Event listeners y configuración
 var eventListeners = {
     setupAll: function() {
@@ -723,6 +791,60 @@ var eventListeners = {
             });
         }
 
+        // Event listeners para autenticación
+        var btnAuthenticate = document.getElementById('btn-authenticate');
+        var btnLogout = document.getElementById('btn-logout');
+        var authModalClose = document.getElementById('auth-modal-close');
+        var authModal = document.getElementById('auth-modal');
+        var cancelAuth = document.getElementById('cancel-auth');
+        var formAuth = document.getElementById('form-auth');
+
+        if (btnAuthenticate) {
+            btnAuthenticate.addEventListener('click', function() {
+                auth.showLoginModal();
+            });
+        }
+
+        if (btnLogout) {
+            btnLogout.addEventListener('click', function() {
+                auth.logout();
+            });
+        }
+
+        if (authModalClose) {
+            authModalClose.addEventListener('click', function() {
+                auth.hideLoginModal();
+            });
+        }
+
+        if (authModal) {
+            authModal.addEventListener('click', function(e) {
+                if (e.target === authModal) {
+                    auth.hideLoginModal();
+                }
+            });
+        }
+
+        if (cancelAuth) {
+            cancelAuth.addEventListener('click', function() {
+                auth.hideLoginModal();
+            });
+        }
+
+        if (formAuth) {
+            formAuth.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var password = document.getElementById('auth-password').value;
+                auth.authenticate(password);
+            });
+        }
+
+        // Cerrar modal de auth con tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                auth.hideLoginModal();
+            }
+        });
         
         // Event listeners para modal
         if (modalClose) {
