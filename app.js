@@ -48,12 +48,9 @@ var utils = {
     },
     
     formatDate: function(date) {
-        if (!date) return '';
-        var d = new Date(date);
-        var day = d.getDate().toString().padStart(2, '0');
-        var month = (d.getMonth() + 1).toString().padStart(2, '0');
-        var year = d.getFullYear();
-        return day + '/' + month + '/' + year;
+    if (!date) return '';
+    // Las fechas ya están en formato DD/MM/YYYY, no necesitan conversión
+    return date;
     },
     
     validateEmail: function(email) {
@@ -326,7 +323,7 @@ var ui = {
                 html += '<tr>';
                 html += '<td>' + turno.alumnoNombre + '</td>';
                 html += '<td>' + turno.materia + '</td>';
-                html += '<td>' + utils.formatDate(turno.fecha) + '</td>';
+                html += '<td>' + turno.fecha + '</td>';
                 html += '<td>' + turno.hora + '</td>';
                 html += '<td>' + turno.estado + '</td>';
                 html += '<td class="action-buttons">';
@@ -582,11 +579,14 @@ var crud = {
         
         document.getElementById('turno-alumno').value = turno.alumnoId;
         document.getElementById('turno-materia').value = turno.materia;
-        document.getElementById('turno-fecha').value = turno.fecha;
         document.getElementById('turno-hora').value = turno.hora;
         document.getElementById('turno-duracion').value = turno.duracion;
         document.getElementById('turno-notas').value = turno.notas;
-        
+        // Convertir DD/MM/YYYY a YYYY-MM-DD para el input date
+        var partesDate = turno.fecha.split('/');
+        var fechaParaInput = partesDate[2] + '-' + partesDate[1] + '-' + partesDate[0];
+        document.getElementById('turno-fecha').value = fechaParaInput;
+
         appState.editingTurno = id;
         modal.open('form-turno', 'Editar Turno');
     },
