@@ -384,7 +384,7 @@ var ui = {
     },
     
     updateMateriaSelects: function() {
-        var selects = ['alumno-materia', 'turno-materia', 'filtro-materia-alumno', 'filtro-materia-turno'];
+        var selects = ['alumno-materia', 'turno-materia', 'filtro-materia-turno'];
         
         for (var i = 0; i < selects.length; i++) {
             var select = document.getElementById(selects[i]);
