@@ -607,6 +607,14 @@ var crud = {
             ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
             return false;
         }
+
+        var fechaIngresada = new Date(formData.fecha);
+        var fechaHoy = new Date();
+        fechaHoy.setHours(0, 0, 0, 0); // Resetear hora para comparar solo fechas
+        if (fechaIngresada < fechaHoy) {
+        ui.showNotification('No se pueden agendar turnos en fechas pasadas. Por favor seleccione una fecha actual o futura.', 'error');
+        return false;
+        }
     
         var alumno = null;
         for (var i = 0; i < appState.alumnos.length; i++) {
