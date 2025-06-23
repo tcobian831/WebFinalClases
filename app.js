@@ -714,26 +714,31 @@ var auth = {
     showGestionContent: function() {
         var restrictedDiv = document.getElementById('access-restricted');
         var gestionContent = document.getElementById('gestion-content');
-        
+    
         if (restrictedDiv) {
             restrictedDiv.classList.add('hidden');
+            restrictedDiv.style.display = 'none';
         }
         if (gestionContent) {
             gestionContent.classList.remove('hidden');
+            gestionContent.style.display = 'block';
         }
     },
-    
+
     hideGestionContent: function() {
         var restrictedDiv = document.getElementById('access-restricted');
         var gestionContent = document.getElementById('gestion-content');
-        
+    
         if (restrictedDiv) {
             restrictedDiv.classList.remove('hidden');
+            restrictedDiv.style.display = 'block';
         }
         if (gestionContent) {
             gestionContent.classList.add('hidden');
+            gestionContent.style.display = 'none';
         }
     }
+
 };
 
 // Event listeners y configuración
