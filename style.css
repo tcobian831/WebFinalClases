@@ -379,18 +379,13 @@ p {
   display: flex;
   justify-content: center;
 }
-
-.imagen-placeholder {
-  width: 250px;
-  height: 300px;
-  background-color: var(--color-secondary);
-  border-radius: var(--radius-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-lg);
-  text-align: center;
+.fotoprofesor {
+  max-width: 180px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
 }
 
 /* Materias Section */
@@ -1030,14 +1025,7 @@ p {
     --color-text-secondary: black;
   }
 }
-.fotoprofesor {
-  max-width: 180px;
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
-  display: block;
-  margin: 0 auto;
-}
+
 /* Estilos para las imágenes de materias */
 .materia-icon {
     width: 60px;
