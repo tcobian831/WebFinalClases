@@ -372,21 +372,25 @@ var ui = {
             var coincideMateria = !materiaFiltro || turno.materia === materiaFiltro;
             var coincideFecha = true;
             if (fechaFiltro) {
-                // Convertir ambas fechas al mismo formato para comparación
-                var fechaTurno = new Date(turno.fecha);
-                var fechaFiltroDate = new Date(fechaFiltro);
-                // Comparar solo la parte de la fecha (sin hora)
-                var fechaTurnoStr = fechaTurno.toISOString().split('T')[0];
-                var fechaFiltroStr = fechaFiltroDate.toISOString().split('T')[0];
-                coincideFecha = fechaTurnoStr === fechaFiltroStr;
+            // Normalizar ambas fechas al formato YYYY-MM-DD sin conversión a objeto Date
+            var fechaTurnoNormalizada = turno.fecha;
+            var fechaFiltroNormalizada = fechaFiltro;
+            
+            // Si la fecha del turno incluye información de tiempo, extraer solo la fecha
+            if (fechaTurnoNormalizada.indexOf('T') !== -1) {
+                fechaTurnoNormalizada = fechaTurnoNormalizada.split('T')[0];
             }
-            if (coincideBusqueda && coincideMateria && coincideFecha) {
-                filtrados.push(turno);
-            }
+            
+            coincideFecha = fechaTurnoNormalizada === fechaFiltroNormalizada;
         }
         
-        return filtrados;
-    },
+        if (coincideBusqueda && coincideMateria && coincideFecha) {
+            filtrados.push(turno);
+        }
+    }
+    
+    return filtrados;
+},
     
     updateMateriaSelects: function() {
         var selects = ['alumno-materia', 'turno-materia', 'filtro-materia-turno'];
@@ -616,7 +620,7 @@ var crud = {
         ui.showNotification('Alumno no encontrado', 'error');
         return false;
     }
-    formData.fecha = new Date(formData.fecha).toISOString().split('T')[0];
+    formData.fecha = formData.fecha;
     formData.alumnoNombre = alumno.nombre;
     
     try {
