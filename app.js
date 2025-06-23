@@ -629,8 +629,10 @@ var crud = {
 };
 
 // Event listeners y configuración
+// Event listeners y configuración
 var eventListeners = {
     setupAll: function() {
+        // Botones principales
         var btnNuevoAlumno = document.getElementById('btn-nuevo-alumno');
         var btnNuevoTurno = document.getElementById('btn-nuevo-turno');
         var modalClose = document.getElementById('modal-close');
@@ -638,16 +640,24 @@ var eventListeners = {
         var cancelAlumno = document.getElementById('cancel-alumno');
         var cancelTurno = document.getElementById('cancel-turno');
         
+        // Event listeners para botones principales
         if (btnNuevoAlumno) {
-            btnNuevoAlumno.addEventListener('click', crud.nuevoAlumno);
+            btnNuevoAlumno.addEventListener('click', function() {
+                crud.nuevoAlumno();
+            });
         }
         
         if (btnNuevoTurno) {
-            btnNuevoTurno.addEventListener('click', crud.nuevoTurno);
+            btnNuevoTurno.addEventListener('click', function() {
+                crud.nuevoTurno();
+            });
         }
         
+        // Event listeners para modal
         if (modalClose) {
-            modalClose.addEventListener('click', modal.close);
+            modalClose.addEventListener('click', function() {
+                modal.close();
+            });
         }
         
         if (modalEl) {
@@ -659,13 +669,18 @@ var eventListeners = {
         }
         
         if (cancelAlumno) {
-            cancelAlumno.addEventListener('click', modal.close);
+            cancelAlumno.addEventListener('click', function() {
+                modal.close();
+            });
         }
         
         if (cancelTurno) {
-            cancelTurno.addEventListener('click', modal.close);
+            cancelTurno.addEventListener('click', function() {
+                modal.close();
+            });
         }
         
+        // Event listeners para formularios
         var formAlumno = document.getElementById('form-alumno');
         var formTurno = document.getElementById('form-turno');
         
@@ -673,11 +688,10 @@ var eventListeners = {
             formAlumno.addEventListener('submit', function(e) {
                 e.preventDefault();
                 var formData = {
-                    nombre: this.nombre.value,
-                    email: this.email.value,
-                    telefono: this.telefono.value,
-                    materia: this.materia.value,
-                    nivel: this.nivel.value
+                    nombre: document.getElementById('alumno-nombre').value,
+                    email: document.getElementById('alumno-email').value,
+                    telefono: document.getElementById('alumno-telefono').value,
+                    nivel: document.getElementById('alumno-nivel').value
                 };
                 crud.guardarAlumno(formData);
             });
@@ -687,17 +701,18 @@ var eventListeners = {
             formTurno.addEventListener('submit', function(e) {
                 e.preventDefault();
                 var formData = {
-                    alumnoId: this.alumnoId.value,
-                    materia: this.materia.value,
-                    fecha: this.fecha.value,
-                    hora: this.hora.value,
-                    duracion: this.duracion.value,
-                    notas: this.notas.value
+                    alumnoId: document.getElementById('turno-alumno').value,
+                    materia: document.getElementById('turno-materia').value,
+                    fecha: document.getElementById('turno-fecha').value,
+                    hora: document.getElementById('turno-hora').value,
+                    duracion: document.getElementById('turno-duracion').value,
+                    notas: document.getElementById('turno-notas').value
                 };
                 crud.guardarTurno(formData);
             });
         }
         
+        // Event listeners para botones de tabla (delegación de eventos)
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('btn-editar-alumno')) {
                 var id = parseFloat(e.target.getAttribute('data-id'));
@@ -714,26 +729,14 @@ var eventListeners = {
             }
         });
         
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                modal.close();
-            }
-        });
-        
+        // Event listeners para filtros
         var buscarAlumno = document.getElementById('buscar-alumno');
-        var filtroMateriaAlumno = document.getElementById('filtro-materia-alumno');
         var buscarTurno = document.getElementById('buscar-turno');
         var filtroMateriaTurno = document.getElementById('filtro-materia-turno');
         var filtroFecha = document.getElementById('filtro-fecha');
         
         if (buscarAlumno) {
             buscarAlumno.addEventListener('keyup', function() {
-                ui.renderAlumnos();
-            });
-        }
-        
-        if (filtroMateriaAlumno) {
-            filtroMateriaAlumno.addEventListener('change', function() {
                 ui.renderAlumnos();
             });
         }
@@ -756,30 +759,66 @@ var eventListeners = {
             });
         }
         
-        var tabButtons = document.querySelectorAll('.tab-button');
-        var tabContents = document.querySelectorAll('.tab-content');
+        // Event listeners para tabs
+        var tabAlumnos = document.getElementById('tab-alumnos');
+        var tabTurnos = document.getElementById('tab-turnos');
         
-        for (var i = 0; i < tabButtons.length; i++) {
-            tabButtons[i].addEventListener('click', function() {
-                var targetTab = this.id.replace('tab-', '');
+        if (tabAlumnos) {
+            tabAlumnos.addEventListener('click', function() {
+                // Remover clase active de todos los tabs
+                var allTabs = document.querySelectorAll('.tab-button');
+                var allContents = document.querySelectorAll('.tab-content');
                 
-                for (var j = 0; j < tabButtons.length; j++) {
-                    tabButtons[j].classList.remove('active');
+                for (var i = 0; i < allTabs.length; i++) {
+                    allTabs[i].classList.remove('active');
                 }
-                for (var k = 0; k < tabContents.length; k++) {
-                    tabContents[k].classList.remove('active');
+                for (var j = 0; j < allContents.length; j++) {
+                    allContents[j].classList.remove('active');
                 }
                 
+                // Activar tab de alumnos
                 this.classList.add('active');
-                var targetContent = document.getElementById('content-' + targetTab);
-                if (targetContent) {
-                    targetContent.classList.add('active');
+                var contentAlumnos = document.getElementById('content-alumnos');
+                if (contentAlumnos) {
+                    contentAlumnos.classList.add('active');
                 }
                 
-                appState.activeTab = targetTab;
+                appState.activeTab = 'alumnos';
             });
         }
         
+        if (tabTurnos) {
+            tabTurnos.addEventListener('click', function() {
+                // Remover clase active de todos los tabs
+                var allTabs = document.querySelectorAll('.tab-button');
+                var allContents = document.querySelectorAll('.tab-content');
+                
+                for (var i = 0; i < allTabs.length; i++) {
+                    allTabs[i].classList.remove('active');
+                }
+                for (var j = 0; j < allContents.length; j++) {
+                    allContents[j].classList.remove('active');
+                }
+                
+                // Activar tab de turnos
+                this.classList.add('active');
+                var contentTurnos = document.getElementById('content-turnos');
+                if (contentTurnos) {
+                    contentTurnos.classList.add('active');
+                }
+                
+                appState.activeTab = 'turnos';
+            });
+        }
+        
+        // Event listener para tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modal.close();
+            }
+        });
+        
+        // Event listeners para navegación móvil
         var navToggle = document.querySelector('.nav-toggle');
         var navMenu = document.querySelector('.nav-menu');
         var navLinks = document.querySelectorAll('.nav-link');
