@@ -643,7 +643,7 @@ var crud = {
         ui.showNotification('Error al guardar el turno', 'error');
         return false;
     }
-},
+};
 
 // Event listeners y configuración
 var eventListeners = {
