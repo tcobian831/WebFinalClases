@@ -174,76 +174,92 @@
                 <h2 class="section-title">Gestión de Clases</h2>
                 <p class="section-subtitle">Sistema de administración de alumnos y turnos</p>
                 
-                <!-- Tabs -->
-                <div class="tabs">
-                    <button id="tab-alumnos" class="tab-button active">Gestión de Alumnos</button>
-                    <button id="tab-turnos" class="tab-button">Gestión de Turnos</button>
-                </div>
-
-                <!-- Content Alumnos -->
-                <div id="content-alumnos" class="tab-content active">
-                    <div class="crud-header">
-                        <h3>Gestión de Alumnos</h3>
-                        <button id="btn-nuevo-alumno" class="btn btn-primary">Nuevo Alumno</button>
+                <!-- Mensaje de acceso restringido -->
+                <div id="access-restricted" class="access-restricted">
+                    <div class="restricted-content">
+                        <h3>🔒 Acceso Restringido</h3>
+                        <p>Esta sección requiere autenticación.</p>
+                        <button id="btn-authenticate" class="btn btn-primary">Ingresar Credenciales</button>
+                    </div>
+                </div> 
+                
+                <!-- Contenido de gestión (inicialmente oculto) -->
+                <div id="gestion-content" class="gestion-content hidden">
+                    <div class="auth-header">
+                        <p>Sesión activa - <button id="btn-logout" class="btn btn-sm btn-secondary">Cerrar Sesión</button></p>
                     </div>
                     
-                    <div class="filtros">
-                        <input type="text" id="buscar-alumno" class="input" placeholder="Buscar alumno...">
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button id="tab-alumnos" class="tab-button active">Gestión de Alumnos</button>
+                        <button id="tab-turnos" class="tab-button">Gestión de Turnos</button>
                     </div>
 
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Teléfono</th>
-                                    <th>Nivel</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-alumnos">
-                                <tr>
-                                    <td colspan="5" class="no-data">No hay alumnos registrados</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Content Turnos -->
-                <div id="content-turnos" class="tab-content">
-                    <div class="crud-header">
-                        <h3>Gestión de Turnos</h3>
-                        <button id="btn-nuevo-turno" class="btn btn-primary">Nuevo Turno</button>
-                    </div>
+                    <!-- Content Alumnos -->
+                    <div id="content-alumnos" class="tab-content active">
+                        <div class="crud-header">
+                            <h3>Gestión de Alumnos</h3>
+                            <button id="btn-nuevo-alumno" class="btn btn-primary">Nuevo Alumno</button>
+                        </div>
                     
-                    <div class="filtros">
-                        <input type="text" id="buscar-turno" class="input" placeholder="Buscar turno...">
-                        <select id="filtro-materia-turno" class="select">
-                            <option value="">Todas las materias</option>
-                        </select>
-                        <input type="date" id="filtro-fecha" class="input">
+                        <div class="filtros">
+                            <input type="text" id="buscar-alumno" class="input" placeholder="Buscar alumno...">
+                        </div>
+
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Teléfono</th>
+                                        <th>Nivel</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-alumnos">
+                                    <tr>
+                                        <td colspan="5" class="no-data">No hay alumnos registrados</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Alumno</th>
-                                    <th>Materia</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-turnos">
-                                <tr>
-                                    <td colspan="6" class="no-data">No hay turnos programados</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- Content Turnos -->
+                    <div id="content-turnos" class="tab-content">
+                        <div class="crud-header">
+                            <h3>Gestión de Turnos</h3>
+                            <button id="btn-nuevo-turno" class="btn btn-primary">Nuevo Turno</button>
+                        </div>
+                    
+                        <div class="filtros">
+                            <input type="text" id="buscar-turno" class="input" placeholder="Buscar turno...">
+                            <select id="filtro-materia-turno" class="select">
+                                <option value="">Todas las materias</option>
+                            </select>
+                            <input type="date" id="filtro-fecha" class="input">
+                        </div>
+
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Alumno</th>
+                                        <th>Materia</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-turnos">
+                                    <tr>
+                                        <td colspan="6" class="no-data">No hay turnos programados</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,7 +288,29 @@
         </div>
     </footer>
 
-    <!-- Modal -->
+    <!-- Modal de Autenticación -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Acceso Restringido</h3>
+                <button id="auth-modal-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="form-auth">
+                    <div class="form-group">
+                        <label for="auth-password">Contraseña de acceso:</label>
+                        <input type="password" id="auth-password" name="password" class="input" placeholder="Ingrese la contraseña" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-auth" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Acceder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de formularios-->
     <div id="modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
