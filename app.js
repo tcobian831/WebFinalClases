@@ -301,7 +301,6 @@ var ui = {
                 html += '<td>' + alumno.nombre + '</td>';
                 html += '<td>' + alumno.email + '</td>';
                 html += '<td>' + alumno.telefono + '</td>';
-                html += '<td>' + alumno.materia + '</td>';
                 html += '<td class="action-buttons">';
                 html += '<button class="btn btn-sm btn-secondary btn-editar-alumno" data-id="' + alumno.id + '">Editar</button>';
                 html += '<button class="btn btn-sm btn-danger btn-eliminar-alumno" data-id="' + alumno.id + '">Eliminar</button>';
