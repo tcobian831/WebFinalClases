@@ -440,8 +440,9 @@ var modal = {
     open: function(formId, title) {
         var modalEl = document.getElementById('modal');
         var titleEl = document.getElementById('modal-title');
-        var forms = ['form-alumno', 'form-turno'];
         
+        // Ocultar TODOS los formularios primero
+        var forms = ['form-alumno', 'form-turno'];
         for (var i = 0; i < forms.length; i++) {
             var form = document.getElementById(forms[i]);
             if (form) {
@@ -449,6 +450,7 @@ var modal = {
             }
         }
         
+        // Mostrar SOLO el formulario solicitado
         var targetForm = document.getElementById(formId);
         if (targetForm) {
             targetForm.classList.remove('hidden');
@@ -469,11 +471,13 @@ var modal = {
             modalEl.classList.remove('active');
         }
         
+        // Limpiar y ocultar todos los formularios
         var forms = ['form-alumno', 'form-turno'];
         for (var i = 0; i < forms.length; i++) {
             var form = document.getElementById(forms[i]);
             if (form) {
                 form.reset();
+                form.classList.add('hidden');
             }
         }
         
@@ -481,7 +485,6 @@ var modal = {
         appState.editingTurno = null;
     }
 };
-
 // Funciones de CRUD
 var crud = {
     nuevoAlumno: function() {
@@ -584,38 +587,45 @@ var crud = {
             ui.showNotification('Turno eliminado correctamente', 'success');
         }
     },
-    
     guardarTurno: function(formData) {
-        if (!formData.alumnoId || !formData.materia || !formData.fecha || !formData.hora) {
-            ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
-            return false;
-        }
-        
-        var alumno = alumnosCrud.getById(formData.alumnoId);
-        if (!alumno) {
-            ui.showNotification('Alumno no encontrado', 'error');
-            return false;
-        }
-        
-        formData.alumnoNombre = alumno.nombre;
-        
-        try {
-            if (appState.editingTurno) {
-                turnosCrud.update(appState.editingTurno, formData);
-                ui.showNotification('Turno actualizado correctamente', 'success');
-            } else {
-                turnosCrud.create(formData);
-                ui.showNotification('Turno creado correctamente', 'success');
-            }
-            
-            modal.close();
-            ui.renderTurnos();
-            return true;
-        } catch (error) {
-            ui.showNotification('Error al guardar el turno', 'error');
-            return false;
+    if (!formData.alumnoId || !formData.materia || !formData.fecha || !formData.hora) {
+        ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
+        return false;
+    }
+    
+    // Buscar el alumno por ID correctamente
+    var alumno = null;
+    for (var i = 0; i < appState.alumnos.length; i++) {
+        if (appState.alumnos[i].id == formData.alumnoId) { // Usar == para comparación flexible
+            alumno = appState.alumnos[i];
+            break;
         }
     }
+    
+    if (!alumno) {
+        ui.showNotification('Alumno no encontrado', 'error');
+        return false;
+    }
+    
+    formData.alumnoNombre = alumno.nombre;
+    
+    try {
+        if (appState.editingTurno) {
+            turnosCrud.update(appState.editingTurno, formData);
+            ui.showNotification('Turno actualizado correctamente', 'success');
+        } else {
+            turnosCrud.create(formData);
+            ui.showNotification('Turno creado correctamente', 'success');
+        }
+        
+        modal.close();
+        ui.renderTurnos();
+        return true;
+    } catch (error) {
+        ui.showNotification('Error al guardar el turno', 'error');
+        return false;
+    }
+}
 };
 
 // Event listeners y configuración
