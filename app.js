@@ -1050,6 +1050,8 @@ function init() {
     ui.renderAlumnos();
     ui.renderTurnos();
     
+    auth.hideGestionContent();
+    
     eventListeners.setupAll();
 }
 
