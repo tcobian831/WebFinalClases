@@ -358,30 +358,28 @@ var ui = {
     },
 
     
-    getFilteredTurnos: function() {
-        var busqueda = document.getElementById('buscar-turno').value.toLowerCase();
-        var materiaFiltro = document.getElementById('filtro-materia-turno').value;
-        var fechaFiltro = document.getElementById('filtro-fecha').value;
+   getFilteredTurnos: function() {
+    var busqueda = document.getElementById('buscar-turno').value.toLowerCase();
+    var materiaFiltro = document.getElementById('filtro-materia-turno').value;
+    var fechaFiltro = document.getElementById('filtro-fecha').value;
+    
+    var turnos = turnosCrud.getAll();
+    var filtrados = [];
+    
+    for (var i = 0; i < turnos.length; i++) {
+        var turno = turnos[i];
+        var coincideBusqueda = turno.alumnoNombre.toLowerCase().indexOf(busqueda) !== -1;
+        var coincideMateria = !materiaFiltro || turno.materia === materiaFiltro;
         
-        var turnos = turnosCrud.getAll();
-        var filtrados = [];
-        
-        for (var i = 0; i < turnos.length; i++) {
-            var turno = turnos[i];
-            var coincideBusqueda = turno.alumnoNombre.toLowerCase().indexOf(busqueda) !== -1;
-            var coincideMateria = !materiaFiltro || turno.materia === materiaFiltro;
-            var coincideFecha = true;
-            if (fechaFiltro) {
-            // Normalizar ambas fechas al formato YYYY-MM-DD sin conversión a objeto Date
-            var fechaTurnoNormalizada = turno.fecha;
-            var fechaFiltroNormalizada = fechaFiltro;
+        // Normalización de fechas
+        var coincideFecha = true;
+        if (fechaFiltro) {
+            // Convertir fecha del filtro (YYYY-MM-DD) a formato DD/MM/YYYY
+            var partesFiltrro = fechaFiltro.split('-');
+            var fechaFiltroFormateada = partesFiltrro[2] + '/' + partesFiltrro[1] + '/' + partesFiltrro[0];
             
-            // Si la fecha del turno incluye información de tiempo, extraer solo la fecha
-            if (fechaTurnoNormalizada.indexOf('T') !== -1) {
-                fechaTurnoNormalizada = fechaTurnoNormalizada.split('T')[0];
-            }
-            
-            coincideFecha = fechaTurnoNormalizada === fechaFiltroNormalizada;
+            // Comparar directamente los strings formateados
+            coincideFecha = turno.fecha === fechaFiltroFormateada;
         }
         
         if (coincideBusqueda && coincideMateria && coincideFecha) {
@@ -390,7 +388,8 @@ var ui = {
     }
     
     return filtrados;
-},
+}
+
     
     updateMateriaSelects: function() {
         var selects = ['alumno-materia', 'turno-materia', 'filtro-materia-turno'];
@@ -601,16 +600,16 @@ var crud = {
             ui.showNotification('Turno eliminado correctamente', 'success');
         }
     },
-    guardarTurno: function(formData) {
+    
+ guardarTurno: function(formData) {
     if (!formData.alumnoId || !formData.materia || !formData.fecha || !formData.hora) {
         ui.showNotification('Por favor complete todos los campos obligatorios', 'error');
         return false;
     }
     
-    // Buscar el alumno por ID correctamente
     var alumno = null;
     for (var i = 0; i < appState.alumnos.length; i++) {
-        if (appState.alumnos[i].id == formData.alumnoId) { // Usar == para comparación flexible
+        if (appState.alumnos[i].id == formData.alumnoId) {
             alumno = appState.alumnos[i];
             break;
         }
@@ -620,7 +619,12 @@ var crud = {
         ui.showNotification('Alumno no encontrado', 'error');
         return false;
     }
-    formData.fecha = formData.fecha;
+    
+    // Convertir fecha a formato DD/MM/YYYY sin zona horaria
+    var partesDate = formData.fecha.split('-');
+    var fechaFormateada = partesDate[2] + '/' + partesDate[1] + '/' + partesDate[0];
+    
+    formData.fecha = fechaFormateada;
     formData.alumnoNombre = alumno.nombre;
     
     try {
@@ -639,10 +643,8 @@ var crud = {
         ui.showNotification('Error al guardar el turno', 'error');
         return false;
     }
-}
 };
 
-// Event listeners y configuración
 // Event listeners y configuración
 var eventListeners = {
     setupAll: function() {
